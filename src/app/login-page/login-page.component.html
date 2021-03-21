@@ -1,1 +1,47 @@
-<p>login-page works!</p>
+<div class="login-page">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <h1 style="text-align: center">Login</h1>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Username" formControlName="username" />
+        <mat-hint *ngIf="loginForm.get('username').hasError('required')"
+          >Username is required</mat-hint
+        >
+        <mat-error *ngIf="loginForm.get('username').hasError('required')"
+          >Username is required</mat-error
+        >
+        <mat-error *ngIf="loginForm.controls.username.errors"
+          >Username should contain atleast 6 characters</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input
+          matInput
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+        />
+        <mat-hint *ngIf="loginForm.get('password').hasError('required')"
+          >Password is required</mat-hint
+        >
+        <mat-error *ngIf="loginForm.get('password').hasError('required')"
+          >Password is required</mat-error
+        >
+        <mat-error *ngIf="loginForm.controls.password.errors"
+          >Password should contain atleast 6 characters</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!loginForm.valid"
+        type="submit"
+      >
+        Login
+      </button>
+      <a href="" id="password-reminder-text"> Forgot your password? </a>
+    </div>
+  </form>
+</div>
