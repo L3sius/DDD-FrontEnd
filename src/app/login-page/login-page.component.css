@@ -1,0 +1,34 @@
+.login-page {
+  width: 500px;
+  margin: 150px auto;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 20px;
+  background-color: #dbc7da;
+  border: #191016;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#password-reminder-text {
+  padding-top: 10px;
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: static !important;
+}
+::ng-deep .mat-form-field-underline {
+  position: static !important;
+}
