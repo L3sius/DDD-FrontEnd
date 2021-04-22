@@ -1,1 +1,126 @@
-<p>home page works!</p>
+<div class="main">
+  <div id="header">
+    <ul>
+      <li>
+        <button mat-flat-button class="customButton" routerLink="/login-page">
+          Login
+        </button>
+      </li>
+      <li>
+        <button
+          mat-flat-button
+          class="customButton"
+          routerLink="/register-page"
+        >
+          Registration
+        </button>
+      </li>
+      <li><h1>DDD</h1></li>
+      <li>
+        <button mat-flat-button class="customButton" routerLink="/faq-page">
+          F.A.Q
+        </button>
+      </li>
+
+      <li>
+        <button
+          class="customButton"
+          mat-flat-button
+          routerLink="/self-service-page"
+        >
+          Self-Service
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Body -->
+  <div class="grid-container">
+    <div class="titleTextArea">
+      <h1 style="font-style: italic">
+        We are a universal courier service company. Our purpose is to make sure
+        our delivery services are simple to understand and easy to use. We
+        guarantee you a variaty of options as well as a direct tracking of your
+        parcels.
+      </h1>
+    </div>
+    <div class="sponsorsArea">
+      <ul>
+        <li><h2>Our partners:</h2></li>
+        <br />
+        <li>
+          <img class="sponsorImg" src="assets/images/sponsorPlaceholder.png" />
+        </li>
+        <br />
+        <li>
+          <img class="sponsorImg" src="assets/images/sponsorPlaceholder.png" />
+        </li>
+        <br />
+        <li>
+          <img class="sponsorImg" src="assets/images/sponsorPlaceholder.png" />
+        </li>
+      </ul>
+    </div>
+    <div class="imageArea">
+      <img class="courierImg" src="assets/images/courier.jpg" />
+    </div>
+    <div class="aboutTextArea">
+      <ul>
+        <li><h2>Why us?</h2></li>
+        <br />
+        <li>We ensure:</li>
+        <br />
+        <li>1) Safety</li>
+        <br />
+        <li>2) Fast delivery</li>
+        <br />
+        <li>3) Options</li>
+        <br />
+      </ul>
+    </div>
+    <div class="shipmentStatusArea">
+      <button
+        class="customButton"
+        mat-flat-button
+        routerLink="/shipment-status-page"
+      >
+        Shipment status
+      </button>
+    </div>
+    <div class="callingCourierArea">
+      <button
+        class="customButton"
+        mat-flat-button
+        routerLink="/calling-a-courier-page"
+      >
+        Calling a courier
+      </button>
+    </div>
+  </div>
+
+  <div class="parent">
+    <div class="citiesOperatingDiv">
+      <ul>
+        <li>We operate in these cities:</li>
+        <br />
+        <li>Vilnius</li>
+        <br />
+        <li>Kaunas</li>
+      </ul>
+    </div>
+    <div class="faqDiv">
+      <button class="customButton" mat-flat-button routerLink="/faq-page">
+        F.A.Q
+      </button>
+    </div>
+    <div class="contactUsDiv">
+      <ul>
+        <li>You can contact us:</li>
+        <br />
+        <li>admin@DDD.com</li>
+        <br />
+        <li>+37069988993</li>
+      </ul>
+    </div>
+  </div>
+</div>
