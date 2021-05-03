@@ -1,0 +1,60 @@
+.login-page {
+  width: 500px;
+  margin: 150px auto;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 20px;
+  background-color: #dbc7da;
+  border: #191016;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#password-reminder-text {
+  padding-top: 10px;
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: static !important;
+}
+::ng-deep .mat-form-field-underline {
+  position: static !important;
+}
+
+/* Checkbox css */
+.container {
+  width: 100%;
+  display: inline-flex;
+  align-items: baseline;
+  box-sizing: border-box;
+  padding-bottom: 1.34375em;
+}
+
+.checkmark {
+  padding: 18px;
+  transform: scale(1.5);
+}
+
+.checkmark:checked:after {
+  font-size: 28px;
+  left: 6px;
+}
+.customButton {
+  background-color: rgba(129, 15, 134, 1);
+  color: #ffffff;
+  border-radius: 10px;
+  width: 150px;
+  margin-bottom: 1.34375em;
+}

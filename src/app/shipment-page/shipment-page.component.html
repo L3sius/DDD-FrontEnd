@@ -1,0 +1,77 @@
+<div class="login-page">
+  <form [formGroup]="shipmentForm">
+    <div class="form">
+      <h1 style="text-align: center">Make a delivery</h1>
+      <mat-form-field appearance="fill">
+        <mat-label>From</mat-label>
+        <mat-select formControlName="valueFrom" name="city">
+          <mat-option *ngFor="let city of cities" [value]="city.value">
+            {{ city.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>To</mat-label>
+        <mat-select formControlName="valueTo" name="city">
+          <mat-option *ngFor="let city of cities" [value]="city.value">
+            {{ city.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Shipment Size</mat-label>
+        <mat-select formControlName="shipmentSize" name="size">
+          <mat-option *ngFor="let size of sizes" [value]="size.value">
+            {{ size.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <label style="padding-bottom: 1.34375em"
+        >Fragile content?
+        <input
+          type="checkbox"
+          class="checkmark"
+          formControlName="fragileCheckBox"
+        />
+      </label>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Delivery Speed</mat-label>
+        <mat-select formControlName="deliverySpeed" name="speed">
+          <mat-option *ngFor="let speed of speeds" [value]="speed.value">
+            {{ speed.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        (click)="generatePrice(priceLabel.id)"
+        mat-flat-button
+        [disabled]="!shipmentForm.valid"
+        class="customButton"
+      >
+        Generate price
+      </button>
+      <mat-label
+        style="padding-bottom: 1.34375em"
+        #priceLabel
+        id="priceLabel"
+        name="priceLabel"
+        >Your price will appear here</mat-label
+      >
+      <button
+        mat-flat-button
+        class="customButton"
+        [disabled]="!shipmentForm.valid"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        Continue ordering
+      </button>
+      <button mat-flat-button class="customButton" routerLink="/">
+        Back to home page
+      </button>
+    </div>
+  </form>
+</div>

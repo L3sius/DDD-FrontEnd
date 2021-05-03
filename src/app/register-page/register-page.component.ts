@@ -43,6 +43,7 @@ class CustomValidators {
 })
 export class RegisterPageComponent implements OnInit {
   registerForm: FormGroup;
+  phoneRegex = new RegExp('^(3706|\\+3706|86)+[0-9]{7}$');
   constructor(
     // private authService: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -55,6 +56,10 @@ export class RegisterPageComponent implements OnInit {
         name: [null, [Validators.required]],
         username: [null, [Validators.required, Validators.minLength(6)]],
         email: [null, [Validators.required, Validators.email]],
+        phone: [
+          null,
+          [Validators.required, Validators.pattern(this.phoneRegex)],
+        ],
         password: [
           null,
           [

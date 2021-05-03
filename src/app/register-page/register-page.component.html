@@ -36,7 +36,20 @@
           >Email is required</mat-error
         >
         <mat-error *ngIf="registerForm.get('email').hasError('email')"
-          >Email format is incorrect</mat-error
+          >Email should follow structure: email@domain</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Mobile Number" formControlName="phone" />
+        <mat-hint *ngIf="registerForm.get('phone').hasError('required')"
+          >Mobile number is required</mat-hint
+        >
+        <mat-error *ngIf="registerForm.get('phone').hasError('required')"
+          >Mobile number is required</mat-error
+        >
+        <mat-error *ngIf="registerForm.get('phone').errors?.pattern"
+          >Mobile number should follow structure: +37060000000 or
+          860000000</mat-error
         >
       </mat-form-field>
       <mat-form-field appearance="outline" [style.width.px]="300">

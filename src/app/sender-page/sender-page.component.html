@@ -1,0 +1,84 @@
+<div class="sender-page">
+  <form [formGroup]="senderForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <h1 style="text-align: center">Sender details</h1>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Full Name" formControlName="name" />
+        <mat-hint *ngIf="senderForm.get('name').hasError('required')"
+          >Full Name is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('name').hasError('required')"
+          >Full Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Mobile Number" formControlName="phone" />
+        <mat-hint *ngIf="senderForm.get('phone').hasError('required')"
+          >Mobile number is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('phone').hasError('required')"
+          >Mobile number is required</mat-error
+        >
+        <mat-error *ngIf="senderForm.get('phone').errors?.pattern"
+          >Mobile number should follow structure: +37060000000 or
+          860000000</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Your Email" formControlName="email" />
+        <mat-hint *ngIf="senderForm.get('email').hasError('required')"
+          >Your email is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('email').hasError('required')"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="senderForm.get('email').hasError('email')"
+          >Email should follow structure: email@domain</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Your city" formControlName="city" />
+        <mat-hint *ngIf="senderForm.get('city').hasError('required')"
+          >Your city is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('city').hasError('required')"
+          >City is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input matInput placeholder="Your address" formControlName="address" />
+        <mat-hint *ngIf="senderForm.get('address').hasError('required')"
+          >Your address is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('address').hasError('required')"
+          >Address is required and should follow structure: Šeškinės g. 22 -
+          6</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input
+          matInput
+          placeholder="Your postal code"
+          formControlName="postalCode"
+        />
+        <mat-hint *ngIf="senderForm.get('postalCode').hasError('required')"
+          >Your postal code is required</mat-hint
+        >
+        <mat-error *ngIf="senderForm.get('postalCode').hasError('required')"
+          >Postal code is required</mat-error
+        >
+        <mat-error *ngIf="senderForm.get('postalCode').errors?.pattern"
+          >Postal code should follow structure: 000000</mat-error
+        >
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!senderForm.valid"
+        type="submit"
+      >
+        Continue
+      </button>
+    </div>
+  </form>
+</div>
