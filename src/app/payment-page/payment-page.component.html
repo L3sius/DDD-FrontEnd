@@ -1,1 +1,40 @@
-<p>payment-page works!</p>
+<div class="receiver-page">
+  <form>
+    <div class="form">
+      <h1 style="text-align: center">Choose payment type</h1>
+      <div class="parent">
+        <div class="div1">
+          <mat-card class="example-card">
+            <img
+              mat-card-image
+              src="assets/images/cashpay.png"
+              alt="Pay via cash"
+              (click)="this.clickedImage('cash')"
+            />
+          </mat-card>
+        </div>
+        <div class="div2">
+          <mat-card class="example-card disabled-card">
+            <img
+              mat-card-image
+              src="assets/images/paypalpay.png"
+              alt="Pay via paypal"
+              (click)="this.clickedImage('paypal')"
+            />
+          </mat-card>
+        </div>
+        <div class="div3">
+          <mat-card class="example-card disabled-card">
+            <img
+              mat-card-image
+              src="assets/images/swedpay.png"
+              alt="Pay via swedbank"
+              (click)="this.clickedImage('swedbank')"
+            />
+          </mat-card>
+        </div>
+      </div>
+      <button mat-flat-button color="primary" routerLink="/">Go back</button>
+    </div>
+  </form>
+</div>

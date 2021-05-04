@@ -2,6 +2,13 @@ import { getSyntheticPropertyName } from '@angular/compiler/src/render3/util';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { saveShipmentPageForm } from '../order-store/shipment-page-store/shipment-page.actions';
+import {
+  fetchShipmentPageState,
+  ShipmentPageState,
+} from '../order-store/shipment-page-store/shipment-page.selector';
 import { AuthenticationService } from '../services/authentication.service';
 
 interface DropdownValues {
@@ -38,9 +45,11 @@ export class ShipmentPageComponent {
     { value: 'fast', viewValue: 'Fast Delivery (1 day)' },
   ];
 
-  constructor(
-    private router: Router // private authService: AuthenticationService
-  ) {}
+  temporary$: Observable<ShipmentPageState>;
+  // private authService: AuthenticationService
+  constructor(private router: Router, private store: Store) {
+    this.temporary$ = store.select(fetchShipmentPageState);
+  }
 
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
@@ -49,6 +58,9 @@ export class ShipmentPageComponent {
       shipmentSize: new FormControl(null, [Validators.required]),
       fragileCheckBox: new FormControl(false, []),
       deliverySpeed: new FormControl(null, [Validators.required]),
+    });
+    this.temporary$.subscribe((response) => {
+      console.log(response);
     });
   }
   onSubmit() {
@@ -60,7 +72,16 @@ export class ShipmentPageComponent {
     //   map(token => this.router.navigate(['service-page']))
     // ).subscribe();
     console.log(this.shipmentForm.value);
-    this.router.navigate(['sender-page']);
+    this.store.dispatch(
+      saveShipmentPageForm({
+        cityFrom: this.shipmentForm.get('valueFrom').value,
+        cityTo: this.shipmentForm.get('valueTo').value,
+        shipmentSize: this.shipmentForm.get('shipmentSize').value,
+        fragileStatus: this.shipmentForm.get('fragileCheckBox').value,
+        deliverySpeed: this.shipmentForm.get('deliverySpeed').value,
+      })
+    );
+    // this.router.navigate(['sender-page']);
   }
   generatePrice(priceLabel) {
     document.getElementById(priceLabel).innerHTML = '19.99';
