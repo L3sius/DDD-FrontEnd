@@ -11,6 +11,7 @@ import { FaqPageComponent } from './faq-page/faq-page.component';
 import { RestorePasswordPageComponent } from './restore-password-page/restore-password-page.component';
 import { TrackingStatusPageComponent } from './tracking-status-page/tracking-status-page.component';
 import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-page/tracking-status-followup-page.component';
+import { SelfServicePageComponent } from './self-service-page/self-service-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
     path: 'tracking-status-followup-page',
     component: TrackingStatusFollowupPageComponent,
   },
+  { path: 'self-service-page', component: SelfServicePageComponent },
 ];
 
 @NgModule({

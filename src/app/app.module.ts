@@ -31,6 +31,7 @@ import {
 } from './restore-password-page/restore-password-page.component';
 import { TrackingStatusPageComponent } from './tracking-status-page/tracking-status-page.component';
 import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-page/tracking-status-followup-page.component';
+import { SelfServicePageComponent } from './self-service-page/self-service-page.component';
 // import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-
     DialogRestorePasswordOverview,
     TrackingStatusPageComponent,
     TrackingStatusFollowupPageComponent,
+    SelfServicePageComponent,
   ],
   imports: [
     BrowserModule,

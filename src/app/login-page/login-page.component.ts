@@ -40,5 +40,6 @@ export class LoginPageComponent {
     //   map(token => this.router.navigate(['service-page']))
     // ).subscribe();
     console.log(this.loginForm.value);
+    this.router.navigate(['self-service-page']);
   }
 }
