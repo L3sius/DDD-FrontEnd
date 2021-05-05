@@ -17,13 +17,20 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SenderPageComponent } from './sender-page/sender-page.component';
 import { ReceiverPageComponent } from './receiver-page/receiver-page.component';
 import {
-  DialogOverview,
+  DialogPaymentOverview,
   PaymentPageComponent,
 } from './payment-page/payment-page.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { StoreModule } from '@ngrx/store';
 import { shipmentPageReducer } from './order-store/shipment-page-store/shipment-page.reducer';
+import { FaqPageComponent } from './faq-page/faq-page.component';
+import {
+  DialogRestorePasswordOverview,
+  RestorePasswordPageComponent,
+} from './restore-password-page/restore-password-page.component';
+import { TrackingStatusPageComponent } from './tracking-status-page/tracking-status-page.component';
+import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-page/tracking-status-followup-page.component';
 // import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -36,7 +43,12 @@ import { shipmentPageReducer } from './order-store/shipment-page-store/shipment-
     SenderPageComponent,
     ReceiverPageComponent,
     PaymentPageComponent,
-    DialogOverview,
+    DialogPaymentOverview,
+    FaqPageComponent,
+    RestorePasswordPageComponent,
+    DialogRestorePasswordOverview,
+    TrackingStatusPageComponent,
+    TrackingStatusFollowupPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +66,12 @@ import { shipmentPageReducer } from './order-store/shipment-page-store/shipment-
     MatDialogModule,
     StoreModule.forRoot(shipmentPageReducer),
   ],
-  entryComponents: [PaymentPageComponent, DialogOverview],
+  entryComponents: [
+    PaymentPageComponent,
+    DialogPaymentOverview,
+    RestorePasswordPageComponent,
+    DialogRestorePasswordOverview,
+  ],
   exports: [MatSelectModule, MatLabel, MatInputModule],
   providers: [],
   bootstrap: [AppComponent],

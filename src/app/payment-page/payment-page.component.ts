@@ -6,8 +6,7 @@ import {
 } from '@angular/material/dialog';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  trackingNumber: string;
 }
 
 @Component({
@@ -21,8 +20,8 @@ export class PaymentPageComponent implements OnInit {
   public clickedImage(message: string) {
     if (message != 'cash') alert(message);
     else {
-      const dialogRef = this.dialog.open(DialogOverview, {
-        width: '250px',
+      const dialogRef = this.dialog.open(DialogPaymentOverview, {
+        width: '300px',
         data: {},
       });
       // TODO: We will need to send data to BE
@@ -38,9 +37,9 @@ export class PaymentPageComponent implements OnInit {
   selector: 'dialog-overview',
   templateUrl: './dialog.html',
 })
-export class DialogOverview {
+export class DialogPaymentOverview {
   constructor(
-    public dialogRef: MatDialogRef<DialogOverview>,
+    public dialogRef: MatDialogRef<DialogPaymentOverview>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

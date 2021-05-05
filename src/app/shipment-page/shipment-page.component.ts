@@ -78,14 +78,6 @@ export class ShipmentPageComponent {
 
     this.priceMapping.set('true', 3);
     this.priceMapping.set('false', 0);
-
-    // console.log(this.priceMapping.has('medium'));
-    // console.log(this.priceMapping.size);
-
-    //Iterate over map entries
-    for (let entry of this.priceMapping.entries()) {
-      console.log(entry[0], entry[1]);
-    }
   }
   onSubmit() {
     if (this.shipmentForm.invalid) {
