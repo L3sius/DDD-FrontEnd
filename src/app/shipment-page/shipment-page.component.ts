@@ -28,7 +28,6 @@ export class ShipmentPageComponent {
   cities: DropdownValues[] = [
     { value: 'Vilnius', viewValue: 'Vilnius' },
     { value: 'Kaunas', viewValue: 'Kaunas' },
-    { value: 'Klaipėda', viewValue: 'Klaipėda' },
   ];
 
   sizes: DropdownValues[] = [
@@ -44,6 +43,8 @@ export class ShipmentPageComponent {
     { value: 'medium', viewValue: 'Medium Delivery (3 days)' },
     { value: 'fast', viewValue: 'Fast Delivery (1 day)' },
   ];
+
+  priceMapping = new Map();
 
   temporary$: Observable<ShipmentPageState>;
   // private authService: AuthenticationService
@@ -62,6 +63,29 @@ export class ShipmentPageComponent {
     this.temporary$.subscribe((response) => {
       console.log(response);
     });
+    this.priceMapping.set('Vilnius', 1);
+    this.priceMapping.set('Kaunas', 2);
+
+    this.priceMapping.set('extrasmall', 0.1);
+    this.priceMapping.set('small', 0.2);
+    this.priceMapping.set('medium', 0.3);
+    this.priceMapping.set('large', 0.4);
+    this.priceMapping.set('extralarge', 0.5);
+
+    this.priceMapping.set('slow', 0.5);
+    this.priceMapping.set('medium', 1);
+    this.priceMapping.set('fast', 2);
+
+    this.priceMapping.set('true', 3);
+    this.priceMapping.set('false', 0);
+
+    // console.log(this.priceMapping.has('medium'));
+    // console.log(this.priceMapping.size);
+
+    //Iterate over map entries
+    for (let entry of this.priceMapping.entries()) {
+      console.log(entry[0], entry[1]);
+    }
   }
   onSubmit() {
     if (this.shipmentForm.invalid) {
@@ -84,6 +108,11 @@ export class ShipmentPageComponent {
     // this.router.navigate(['sender-page']);
   }
   generatePrice(priceLabel) {
-    document.getElementById(priceLabel).innerHTML = '19.99';
+    let totalSum = 0;
+    for (const inputValue in this.shipmentForm.controls) {
+      let input = this.shipmentForm.get(inputValue).value;
+      totalSum += this.priceMapping.get(input.toString());
+    }
+    document.getElementById(priceLabel).innerHTML = totalSum.toString();
   }
 }
