@@ -38,7 +38,7 @@ export class ReceiverPageComponent implements OnInit {
     }
 
     console.log(this.receiverForm.value);
-    this.router.navigate(['receiver-page']);
+    this.router.navigate(['payment-page']);
     // this.authService.register(this.receiverForm.value).pipe(
     //   map(user => this.router.navigate(['login-page']))
     // ).subscribe();

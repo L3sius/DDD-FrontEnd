@@ -18,7 +18,7 @@ export class PaymentPageComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   ngOnInit(): void {}
   public clickedImage(message: string) {
-    if (message != 'cash') alert(message);
+    if (message != 'cash') alert('This option is currently unavailable!');
     else {
       const dialogRef = this.dialog.open(DialogPaymentOverview, {
         width: '300px',
