@@ -97,7 +97,7 @@ export class ShipmentPageComponent {
         deliverySpeed: this.shipmentForm.get('deliverySpeed').value,
       })
     );
-    //this.router.navigate(['sender-page']);
+    this.router.navigate(['sender-page']);
   }
   generatePrice(priceLabel) {
     let totalSum = 0;

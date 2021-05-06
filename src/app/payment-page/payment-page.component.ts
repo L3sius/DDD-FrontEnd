@@ -4,6 +4,12 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  fetchShipmentPageState,
+  ShipmentPageState,
+} from '../order-store/shipment-page-store/shipment-page.selector';
 
 export interface DialogData {
   trackingNumber: string;
@@ -15,8 +21,15 @@ export interface DialogData {
   styleUrls: ['./payment-page.component.css'],
 })
 export class PaymentPageComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
-  ngOnInit(): void {}
+  storeData$: Observable<ShipmentPageState>;
+  constructor(public dialog: MatDialog, store: Store) {
+    this.storeData$ = store.select(fetchShipmentPageState);
+  }
+  ngOnInit(): void {
+    this.storeData$.subscribe((response) => {
+      console.log(response);
+    });
+  }
   public clickedImage(message: string) {
     if (message != 'cash') alert('This option is currently unavailable!');
     else {

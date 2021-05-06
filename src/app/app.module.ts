@@ -32,7 +32,8 @@ import {
 import { TrackingStatusPageComponent } from './tracking-status-page/tracking-status-page.component';
 import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-page/tracking-status-followup-page.component';
 import { SelfServicePageComponent } from './self-service-page/self-service-page.component';
-// import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,10 @@ import { SelfServicePageComponent } from './self-service-page/self-service-page.
     MatCheckboxModule,
     MatCardModule,
     MatDialogModule,
-    StoreModule.forRoot(shipmentPageReducer),
+    StoreModule.forRoot({ shipmentPage: shipmentPageReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
   ],
   entryComponents: [
     PaymentPageComponent,
