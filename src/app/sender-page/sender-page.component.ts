@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { saveSenderPageForm } from '../order-store/store.actions';
 
 @Component({
   selector: 'app-sender-page',
@@ -14,7 +16,8 @@ export class SenderPageComponent implements OnInit {
   constructor(
     // private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -30,13 +33,22 @@ export class SenderPageComponent implements OnInit {
       ],
     });
   }
-
   onSubmit() {
     if (this.senderForm.invalid) {
       return;
     }
 
     console.log(this.senderForm.value);
+    this.store.dispatch(
+      saveSenderPageForm({
+        name: this.senderForm.get('name').value,
+        phone: this.senderForm.get('phone').value,
+        email: this.senderForm.get('email').value,
+        city: this.senderForm.get('city').value,
+        address: this.senderForm.get('address').value,
+        postalCode: this.senderForm.get('postalCode').value,
+      })
+    );
     this.router.navigate(['receiver-page']);
     // this.authService.register(this.senderForm.value).pipe(
     //   map(user => this.router.navigate(['login-page']))

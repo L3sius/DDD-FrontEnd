@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { saveReceiverPageForm } from '../order-store/store.actions';
 
 @Component({
   selector: 'app-receiver-page',
@@ -14,7 +16,8 @@ export class ReceiverPageComponent implements OnInit {
   constructor(
     // private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,18 @@ export class ReceiverPageComponent implements OnInit {
     }
 
     console.log(this.receiverForm.value);
+    this.store.dispatch(
+      saveReceiverPageForm({
+        name: this.receiverForm.get('name').value,
+        phone: this.receiverForm.get('phone').value,
+        email: this.receiverForm.get('email').value,
+        city: this.receiverForm.get('city').value,
+        address: this.receiverForm.get('address').value,
+        postalCode: this.receiverForm.get('postalCode').value,
+        additionalInformation: this.receiverForm.get('additionalInformation')
+          .value,
+      })
+    );
     this.router.navigate(['payment-page']);
     // this.authService.register(this.receiverForm.value).pipe(
     //   map(user => this.router.navigate(['login-page']))

@@ -7,9 +7,13 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
+  fetchReceiverPageState,
+  fetchSenderPageState,
   fetchShipmentPageState,
+  ReceiverPageState,
+  SenderPageState,
   ShipmentPageState,
-} from '../order-store/shipment-page-store/shipment-page.selector';
+} from '../order-store/store.selector';
 
 export interface DialogData {
   trackingNumber: string;
@@ -21,12 +25,22 @@ export interface DialogData {
   styleUrls: ['./payment-page.component.css'],
 })
 export class PaymentPageComponent implements OnInit {
-  storeData$: Observable<ShipmentPageState>;
+  shipmentData$: Observable<ShipmentPageState>;
+  senderData$: Observable<SenderPageState>;
+  receiverData$: Observable<ReceiverPageState>;
   constructor(public dialog: MatDialog, store: Store) {
-    this.storeData$ = store.select(fetchShipmentPageState);
+    this.shipmentData$ = store.select(fetchShipmentPageState);
+    this.senderData$ = store.select(fetchSenderPageState);
+    this.receiverData$ = store.select(fetchReceiverPageState);
   }
   ngOnInit(): void {
-    this.storeData$.subscribe((response) => {
+    this.shipmentData$.subscribe((response) => {
+      console.log(response);
+    });
+    this.senderData$.subscribe((response) => {
+      console.log(response);
+    });
+    this.receiverData$.subscribe((response) => {
       console.log(response);
     });
   }

@@ -1,15 +1,8 @@
-import { getSyntheticPropertyName } from '@angular/compiler/src/render3/util';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { saveShipmentPageForm } from '../order-store/shipment-page-store/shipment-page.actions';
-import {
-  fetchShipmentPageState,
-  ShipmentPageState,
-} from '../order-store/shipment-page-store/shipment-page.selector';
-import { AuthenticationService } from '../services/authentication.service';
+import { saveShipmentPageForm } from '../order-store/store.actions';
 
 interface DropdownValues {
   value: string;
@@ -46,10 +39,10 @@ export class ShipmentPageComponent {
 
   priceMapping = new Map();
 
-  temporary$: Observable<ShipmentPageState>;
+  // temporary$: Observable<ShipmentPageState>;
   // private authService: AuthenticationService
   constructor(private router: Router, private store: Store) {
-    this.temporary$ = store.select(fetchShipmentPageState);
+    // this.temporary$ = store.select(fetchShipmentPageState);
   }
 
   ngOnInit(): void {
@@ -60,9 +53,9 @@ export class ShipmentPageComponent {
       fragileCheckBox: new FormControl(false, []),
       deliverySpeed: new FormControl(null, [Validators.required]),
     });
-    this.temporary$.subscribe((response) => {
-      console.log(response);
-    });
+    // this.temporary$.subscribe((response) => {
+    //   console.log(response);
+    // });
     this.priceMapping.set('Vilnius', 1);
     this.priceMapping.set('Kaunas', 2);
 
