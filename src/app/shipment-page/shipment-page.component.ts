@@ -1,15 +1,8 @@
-import { getSyntheticPropertyName } from '@angular/compiler/src/render3/util';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { saveShipmentPageForm } from '../order-store/shipment-page-store/shipment-page.actions';
-import {
-  fetchShipmentPageState,
-  ShipmentPageState,
-} from '../order-store/shipment-page-store/shipment-page.selector';
-import { AuthenticationService } from '../services/authentication.service';
+import { saveShipmentPageForm } from '../order-store/store.actions';
 
 interface DropdownValues {
   value: string;
@@ -28,7 +21,6 @@ export class ShipmentPageComponent {
   cities: DropdownValues[] = [
     { value: 'Vilnius', viewValue: 'Vilnius' },
     { value: 'Kaunas', viewValue: 'Kaunas' },
-    { value: 'Klaipėda', viewValue: 'Klaipėda' },
   ];
 
   sizes: DropdownValues[] = [
@@ -45,10 +37,12 @@ export class ShipmentPageComponent {
     { value: 'fast', viewValue: 'Fast Delivery (1 day)' },
   ];
 
-  temporary$: Observable<ShipmentPageState>;
+  priceMapping = new Map();
+
+  // temporary$: Observable<ShipmentPageState>;
   // private authService: AuthenticationService
   constructor(private router: Router, private store: Store) {
-    this.temporary$ = store.select(fetchShipmentPageState);
+    // this.temporary$ = store.select(fetchShipmentPageState);
   }
 
   ngOnInit(): void {
@@ -59,9 +53,24 @@ export class ShipmentPageComponent {
       fragileCheckBox: new FormControl(false, []),
       deliverySpeed: new FormControl(null, [Validators.required]),
     });
-    this.temporary$.subscribe((response) => {
-      console.log(response);
-    });
+    // this.temporary$.subscribe((response) => {
+    //   console.log(response);
+    // });
+    this.priceMapping.set('Vilnius', 1);
+    this.priceMapping.set('Kaunas', 2);
+
+    this.priceMapping.set('extrasmall', 0.1);
+    this.priceMapping.set('small', 0.2);
+    this.priceMapping.set('medium', 0.3);
+    this.priceMapping.set('large', 0.4);
+    this.priceMapping.set('extralarge', 0.5);
+
+    this.priceMapping.set('slow', 0.5);
+    this.priceMapping.set('medium', 1);
+    this.priceMapping.set('fast', 2);
+
+    this.priceMapping.set('true', 3);
+    this.priceMapping.set('false', 0);
   }
   onSubmit() {
     if (this.shipmentForm.invalid) {
@@ -81,9 +90,14 @@ export class ShipmentPageComponent {
         deliverySpeed: this.shipmentForm.get('deliverySpeed').value,
       })
     );
-    // this.router.navigate(['sender-page']);
+    this.router.navigate(['sender-page']);
   }
   generatePrice(priceLabel) {
-    document.getElementById(priceLabel).innerHTML = '19.99';
+    let totalSum = 0;
+    for (const inputValue in this.shipmentForm.controls) {
+      let input = this.shipmentForm.get(inputValue).value;
+      totalSum += this.priceMapping.get(input.toString());
+    }
+    document.getElementById(priceLabel).innerHTML = totalSum.toString();
   }
 }

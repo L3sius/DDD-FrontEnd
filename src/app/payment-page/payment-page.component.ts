@@ -4,10 +4,19 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  fetchReceiverPageState,
+  fetchSenderPageState,
+  fetchShipmentPageState,
+  ReceiverPageState,
+  SenderPageState,
+  ShipmentPageState,
+} from '../order-store/store.selector';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  trackingNumber: string;
 }
 
 @Component({
@@ -16,13 +25,30 @@ export interface DialogData {
   styleUrls: ['./payment-page.component.css'],
 })
 export class PaymentPageComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
-  ngOnInit(): void {}
+  shipmentData$: Observable<ShipmentPageState>;
+  senderData$: Observable<SenderPageState>;
+  receiverData$: Observable<ReceiverPageState>;
+  constructor(public dialog: MatDialog, store: Store) {
+    this.shipmentData$ = store.select(fetchShipmentPageState);
+    this.senderData$ = store.select(fetchSenderPageState);
+    this.receiverData$ = store.select(fetchReceiverPageState);
+  }
+  ngOnInit(): void {
+    this.shipmentData$.subscribe((response) => {
+      console.log(response);
+    });
+    this.senderData$.subscribe((response) => {
+      console.log(response);
+    });
+    this.receiverData$.subscribe((response) => {
+      console.log(response);
+    });
+  }
   public clickedImage(message: string) {
-    if (message != 'cash') alert(message);
+    if (message != 'cash') alert('This option is currently unavailable!');
     else {
-      const dialogRef = this.dialog.open(DialogOverview, {
-        width: '250px',
+      const dialogRef = this.dialog.open(DialogPaymentOverview, {
+        width: '300px',
         data: {},
       });
       // TODO: We will need to send data to BE
@@ -38,9 +64,9 @@ export class PaymentPageComponent implements OnInit {
   selector: 'dialog-overview',
   templateUrl: './dialog.html',
 })
-export class DialogOverview {
+export class DialogPaymentOverview {
   constructor(
-    public dialogRef: MatDialogRef<DialogOverview>,
+    public dialogRef: MatDialogRef<DialogPaymentOverview>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

@@ -1,8 +1,14 @@
-<h1 mat-dialog-title>Thanks for your order!</h1>
+<h1 mat-dialog-title style="text-align: center">You choose paying by cash.</h1>
 <div mat-dialog-content>
-  <mat-label>Your tracking number will be sent to your email</mat-label>
+  <mat-label style="text-align: center"
+    >Your order has been created and the tracking number will be sent to your
+    email</mat-label
+  >
 </div>
-<div mat-dialog-actions>
+<h3 style="text-align: center; padding-top: 20px; margin-bottom: 0px">
+  Thanks for choosing our services!
+</h3>
+<div mat-dialog-actions style="justify-content: center">
   <button mat-flat-button (click)="onNoClick()" routerLink="/">
     Back to start page
   </button>

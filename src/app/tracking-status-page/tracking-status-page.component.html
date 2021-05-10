@@ -1,0 +1,42 @@
+<div class="tracking-status-page">
+  <form [formGroup]="trackingStatusForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <h1 style="text-align: center">Order status</h1>
+      <mat-label style="margin-bottom: 20px"
+        >If you wish to check your order status, please insert the tracking
+        number below.</mat-label
+      >
+      <mat-form-field appearance="outline" [style.width.px]="300">
+        <input
+          matInput
+          placeholder="Your tracking number"
+          formControlName="trackingNumber"
+        />
+        <mat-hint
+          *ngIf="trackingStatusForm.get('trackingNumber').hasError('required')"
+          >Your tracking number is required</mat-hint
+        >
+        <mat-error
+          *ngIf="trackingStatusForm.get('trackingNumber').hasError('required')"
+          >tracking number is required</mat-error
+        >
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!trackingStatusForm.valid"
+        type="submit"
+      >
+        Continue
+      </button>
+      <button
+        style="margin-top: 15px"
+        mat-flat-button
+        color="primary"
+        routerLink="/"
+      >
+        Back to home page
+      </button>
+    </div>
+  </form>
+</div>
