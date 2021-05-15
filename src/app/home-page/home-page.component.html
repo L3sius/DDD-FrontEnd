@@ -18,8 +18,26 @@
       </li>
 
       <li>
-        <button class="customButton" mat-flat-button routerLink="/login-page">
-          Self-Service
+        <div *ngIf="isLoggedIn(); then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock
+          ><button
+            class="customButton"
+            mat-flat-button
+            routerLink="/self-service-page"
+          >
+            Self-Service
+          </button></ng-template
+        >
+        <ng-template #elseBlock>
+          <button class="customButton" mat-flat-button routerLink="/login-page">
+            Login here!
+          </button></ng-template
+        >
+      </li>
+
+      <li *ngIf="isLoggedIn()">
+        <button class="customButton" mat-flat-button (click)="logOut()">
+          Log out
         </button>
       </li>
     </ul>

@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -7,7 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { environment } from 'src/environments/environment.prod';
+import { RegisterContent } from '../models/register';
+import { Location } from '@angular/common';
 
 class CustomValidators {
   static passwordContainsNumber(control: AbstractControl): ValidationErrors {
@@ -44,10 +47,14 @@ class CustomValidators {
 export class RegisterPageComponent implements OnInit {
   registerForm: FormGroup;
   phoneRegex = new RegExp('^(3706|\\+3706|86)+[0-9]{7}$');
+  private baseUrl = environment.baseUrl;
+  registerContent: RegisterContent[];
+
   constructor(
-    // private authService: AuthenticationService,
+    private http: HttpClient,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -93,9 +100,32 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    console.log(this.registerForm.value);
-    // this.authService.register(this.registerForm.value).pipe(
-    //   map(user => this.router.navigate(['login-page']))
-    // ).subscribe();
+    var name = this.registerForm.get('name').value;
+    var username = this.registerForm.get('username').value;
+    var email = this.registerForm.get('email').value;
+    var number = this.registerForm.get('phone').value;
+    var password = this.registerForm.get('password').value;
+    var registerContent: RegisterContent = {
+      name,
+      username,
+      email,
+      number,
+      password,
+    };
+    console.log(registerContent);
+
+    this.http
+      .post(`${this.baseUrl}/register`, registerContent, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        observe: 'response',
+      })
+      .subscribe(
+        () => {
+          alert('Account created succesfully, you can login now.');
+          this.location.replaceState('/');
+          this.router.navigate(['/login-page']);
+        },
+        (error) => console.log(error)
+      );
   }
 }

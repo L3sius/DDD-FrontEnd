@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,12 +12,11 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginPageComponent {
   loginForm: FormGroup;
-
-  // TODO: Check authentication?
-  // private token: string;
-
+  private token: string;
   constructor(
-    private router: Router // private authService: AuthenticationService
+    private router: Router,
+    private authService: AuthService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -23,23 +24,31 @@ export class LoginPageComponent {
       username: new FormControl(null, [
         Validators.required,
         Validators.minLength(6),
+        Validators.maxLength(30),
       ]),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(6),
+        Validators.maxLength(30),
       ]),
     });
   }
-  onSubmit() {
+  onSubmit(user: User) {
     if (this.loginForm.invalid) {
       return;
     }
 
-    // TODO: Finish authService navigation
-    // this.authService.login(this.loginForm.value).pipe(
-    //   map(token => this.router.navigate(['service-page']))
-    // ).subscribe();
     console.log(this.loginForm.value);
-    this.router.navigate(['self-service-page']);
+
+    this.authService.logIn(user).subscribe(
+      (response) => {
+        sessionStorage.setItem('authorization', response.body);
+        this.location.replaceState('/');
+        this.router.navigate(['self-service-page']);
+      },
+      (error) => {
+        console.log(error.status);
+      }
+    );
   }
 }

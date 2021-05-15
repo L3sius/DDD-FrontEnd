@@ -32,7 +32,20 @@
   position: static !important;
 }
 
-ol > li {
-  padding-bottom: 5px;
-  padding-top: 15px;
+table {
+  width: 100%;
+  box-shadow: none;
+  /* border: #191016; */
+  border: #191016;
+  border-style: solid;
+  border-width: 1px;
+}
+th.mat-header-cell {
+  color: #191016;
+  background-color: #dbc7da;
+  text-align: center;
+}
+td {
+  background-color: #dbc7da;
+  text-align: center;
 }

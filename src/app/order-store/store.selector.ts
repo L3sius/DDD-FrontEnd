@@ -27,17 +27,21 @@ export interface ReceiverPageState {
   additionalInformation?: string;
 }
 
-export const fetchShipmentPageState = createFeatureSelector<ShipmentPageState>(
-  'shipmentPage'
-);
+export interface trackingStatusPageState {
+  trackingNumber?: string;
+}
 
-export const fetchSenderPageState = createFeatureSelector<SenderPageState>(
-  'senderPage'
-);
+export const fetchShipmentPageState =
+  createFeatureSelector<ShipmentPageState>('shipmentPage');
 
-export const fetchReceiverPageState = createFeatureSelector<SenderPageState>(
-  'receiverPage'
-);
+export const fetchSenderPageState =
+  createFeatureSelector<SenderPageState>('senderPage');
+
+export const fetchReceiverPageState =
+  createFeatureSelector<SenderPageState>('receiverPage');
+
+export const fetchTrackingStatusPageState =
+  createFeatureSelector<trackingStatusPageState>('trackingStatusPage');
 
 //Fetch one thing (example)
 export const fetchShipmentPageCityFrom = createSelector(

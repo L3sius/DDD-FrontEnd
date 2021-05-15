@@ -1,4 +1,8 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +25,7 @@ import {
   senderPageReducer,
   shipmentPageReducer,
   receiverPageReducer,
+  trackingStatusPageReducer,
 } from './order-store/store.reducer';
 import {
   DialogPaymentOverview,
@@ -34,9 +39,11 @@ import {
 } from './restore-password-page/restore-password-page.component';
 import { SelfServicePageComponent } from './self-service-page/self-service-page.component';
 import { SenderPageComponent } from './sender-page/sender-page.component';
+import { AuthHttpInterceptor } from './services/auth/auth-http-interceptor';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { TrackingStatusFollowupPageComponent } from './tracking-status-followup-page/tracking-status-followup-page.component';
 import { TrackingStatusPageComponent } from './tracking-status-page/tracking-status-page.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -70,10 +77,13 @@ import { TrackingStatusPageComponent } from './tracking-status-page/tracking-sta
     MatCheckboxModule,
     MatCardModule,
     MatDialogModule,
+    HttpClientModule,
+    MatTableModule,
     StoreModule.forRoot({
       shipmentPage: shipmentPageReducer,
       senderPage: senderPageReducer,
       receiverPage: receiverPageReducer,
+      trackingStatusPage: trackingStatusPageReducer,
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -86,7 +96,13 @@ import { TrackingStatusPageComponent } from './tracking-status-page/tracking-sta
     DialogRestorePasswordOverview,
   ],
   exports: [MatSelectModule, MatLabel, MatInputModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
