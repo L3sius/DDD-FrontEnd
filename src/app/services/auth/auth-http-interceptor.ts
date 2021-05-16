@@ -50,7 +50,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
               this.authService.logOut();
-              return alert('Incorrect Username or Password');
+              return alert('User unauthorized for this action');
             }
             return;
           }

@@ -12,7 +12,7 @@ import { saveReceiverPageForm } from '../order-store/store.actions';
 export class ReceiverPageComponent implements OnInit {
   receiverForm: FormGroup;
   phoneRegex = new RegExp('^(3706|\\+3706|86)+[0-9]{7}$');
-  postalCodeRegex = new RegExp('^[0-9]{6,6}$');
+  postalCodeRegex = new RegExp('^[0-9]{5,5}$');
   constructor(
     // private authService: AuthenticationService,
     private formBuilder: FormBuilder,

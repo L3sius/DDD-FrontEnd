@@ -44,8 +44,14 @@ th.mat-header-cell {
   color: #191016;
   background-color: #dbc7da;
   text-align: center;
+  border: #191016;
+  border-style: solid;
+  border-width: 1px;
 }
 td {
   background-color: #dbc7da;
   text-align: center;
+  border: #191016;
+  border-style: solid;
+  border-width: 1px;
 }

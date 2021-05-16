@@ -1,9 +1,24 @@
-export interface paymentContent {
-  sessionToken?: string;
+export interface orderHistoryContent {
+  additionalInfo?: string;
+  id: number;
+  trackingNumber: string;
   receiver: receiverContent;
-  senderAddressId: number;
   receiverAddress: receiverAddressContent;
   parcelInfo: parcelInfoContent;
+  sender: senderContent;
+  senderAddress: senderAddressContent;
+}
+
+export interface senderContent {
+  email: string;
+  name: string;
+  phoneNumber: string;
+}
+
+export interface senderAddressContent {
+  address: string;
+  city: string;
+  postalCode: string;
 }
 
 export interface receiverContent {

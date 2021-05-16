@@ -51,7 +51,7 @@ export class TrackingStatusFollowupPageComponent implements OnInit {
     this.trackingStatusPageData$.subscribe((response) => {
       this.trackingNumber = response.trackingNumber;
     });
-    // TODO: Implement number usage from previous page
+
     document.getElementById('trackingLabel').innerHTML =
       'Your tracking number is: ' + this.trackingNumber;
 

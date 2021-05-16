@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { paymentContent } from '../models/payment';
 import { SenderInfo } from '../models/senderInfo';
+import { Token } from '../models/token';
 import {
   fetchReceiverPageState,
   fetchSenderPageState,
@@ -34,7 +35,9 @@ export class PaymentPageComponent implements OnInit {
   senderData$: Observable<SenderPageState>;
   receiverData$: Observable<ReceiverPageState>;
   private baseUrl = environment.baseUrl;
+  public senderAddressId: number;
 
+  sender_address: string;
   receiverContent_name: string;
   receiverContent_email: string;
   receivercontent_phoneNumber: string;
@@ -62,6 +65,7 @@ export class PaymentPageComponent implements OnInit {
   ngOnInit(): void {
     this.senderData$.subscribe((response) => {
       console.log(response);
+      this.sender_address = response.address;
     });
     this.receiverData$.subscribe((response) => {
       console.log(response);
@@ -79,17 +83,26 @@ export class PaymentPageComponent implements OnInit {
       this.parcelInfoContent_speedType = response.deliverySpeed;
     });
 
-    console.log(
-      this.fetchSenderAddressInfo()
-        .toPromise()
-        .then((response) => {
-          console.log(response);
-        })
-    );
+    if (this.authService.getToken()) {
+      this.fetchSenderAddressInfo().subscribe((response) => {
+        console.log(response);
+        console.log(Object.keys(response).length);
+        //Take first address to send from
+        for (var i = 0; i < Object.keys(response).length; i++) {
+          if ((this.sender_address = response[i].address))
+            this.senderAddressId = response[i].id;
+        }
+      });
+    }
   }
 
+  public tokenModel: Token;
   public fetchSenderAddressInfo(): Observable<SenderInfo> {
-    return this.http.get<SenderInfo>(`${this.baseUrl}/api/address`);
+    this.tokenModel = { sessionToken: sessionStorage.getItem('authorization') };
+    return this.http.put<SenderInfo>(
+      `${this.baseUrl}/address`,
+      this.tokenModel
+    );
   }
 
   public clickedImage(message: string) {
@@ -106,13 +119,15 @@ export class PaymentPageComponent implements OnInit {
     }
     // TODO: We will need to send data to BE
     var paymentContent: paymentContent = {
-      sessionToken: this.authService.getToken(),
+      sessionToken: this.authService.getToken()
+        ? this.authService.getToken()
+        : undefined,
       receiver: {
         name: this.receiverContent_name,
         email: this.receiverContent_email,
         phoneNumber: this.receivercontent_phoneNumber,
       },
-      senderAddressId: 1,
+      senderAddressId: this.senderAddressId ? this.senderAddressId : null,
       receiverAddress: {
         address: this.receiverAddressContent_address,
         city: this.receiverAddressContent_city,
