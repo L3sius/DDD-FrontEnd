@@ -1,15 +1,15 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ReceiverPageComponent } from '../receiver-page/receiver-page.component';
-import { SenderPageComponent } from '../sender-page/sender-page.component';
 import {
   saveReceiverPageForm,
   saveSenderPageForm,
   saveShipmentPageForm,
+  saveTrackingStatusForm,
 } from './store.actions';
 import {
-  ShipmentPageState,
-  SenderPageState,
   ReceiverPageState,
+  SenderPageState,
+  ShipmentPageState,
+  trackingStatusPageState,
 } from './store.selector';
 
 export const initialState = {};
@@ -49,6 +49,13 @@ export const receiverReducer = createReducer(
   }))
 );
 
+export const trackingStatusReducer = createReducer(
+  initialState,
+  on(saveTrackingStatusForm, (state, action) => ({
+    trackingNumber: action.trackingNumber,
+  }))
+);
+
 export function shipmentPageReducer(state: ShipmentPageState, action: Action) {
   return shipmentReducer(state, action);
 }
@@ -59,4 +66,11 @@ export function senderPageReducer(state: SenderPageState, action: Action) {
 
 export function receiverPageReducer(state: ReceiverPageState, action: Action) {
   return receiverReducer(state, action);
+}
+
+export function trackingStatusPageReducer(
+  state: trackingStatusPageState,
+  action: Action
+) {
+  return trackingStatusReducer(state, action);
 }

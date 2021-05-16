@@ -36,6 +36,13 @@ export const saveReceiverPageForm = createAction(
   }>()
 );
 
+export const saveTrackingStatusForm = createAction(
+  '[Tracking Status Page Component] save tracking status page form',
+  props<{
+    trackingNumber: string;
+  }>()
+);
+
 //Dispatchinamas (iš komponento actioną dispachinį ir pagal jį suveiks:
 // arba reduceris (išsaugo į state duomenis kuriuos paduodi su actionu)
 // arba efektas (jame pažymi kad jis suveiks su kažkokiu actionu))
